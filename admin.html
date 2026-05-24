@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-800 text-white flex flex-col hidden md:flex">
+        <div class="p-6 text-center border-b border-blue-700">
+            <h1 class="text-xl font-bold">CBT Admin</h1>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="#" class="block px-4 py-2 bg-blue-700 rounded-lg">Dashboard</a>
+            <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded-lg">Data Master</a>
+            <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded-lg">Bank Soal</a>
+            <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded-lg">Monitoring Ujian</a>
+            <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded-lg">Laporan & Nilai</a>
+        </nav>
+        <div class="p-4">
+            <button onclick="logout()" class="w-full bg-red-500 hover:bg-red-600 py-2 rounded-lg">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
+        <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+            <h2 class="text-xl font-semibold text-slate-800">Dashboard Utama</h2>
+            <span id="userNameDisplay" class="font-medium text-slate-600"></span>
+        </header>
+        
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <!-- Statistik Cards -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-blue-500">
+                    <p class="text-sm text-slate-500 font-medium">Total Siswa</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-2">124</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-green-500">
+                    <p class="text-sm text-slate-500 font-medium">Ujian Aktif</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-2">2</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-yellow-500">
+                    <p class="text-sm text-slate-500 font-medium">Peserta Online</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-2 animate-pulse">45</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-purple-500">
+                    <p class="text-sm text-slate-500 font-medium">Total Soal</p>
+                    <p class="text-3xl font-bold text-slate-800 mt-2">1,050</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+                <h3 class="text-lg font-semibold mb-4">Informasi Sistem</h3>
+                <p class="text-slate-600">Untuk integrasi fitur Import Excel dan Upload Soal PDF secara otomatis, diperlukan server berbasis Node.js atau PHP. Pada versi Google Sheets ini, kelola Data Master dan Soal langsung melalui Sheet yang telah disediakan untuk performa maksimal.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const user = JSON.parse(sessionStorage.getItem('userCBT'));
+        if(!user || (user.role !== 'admin' && user.role !== 'guru')) {
+            window.location.href = 'index.html';
+        }
+        document.getElementById('userNameDisplay').innerText = `Halo, ${user.nama}`;
+
+        function logout() {
+            sessionStorage.removeItem('userCBT');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
